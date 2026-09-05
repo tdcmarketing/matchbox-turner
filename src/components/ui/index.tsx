@@ -125,8 +125,8 @@ export function Toggle({ checked, onChange, label }: { checked: boolean; onChang
       onClick={() => onChange(!checked)}
       className="inline-flex items-center gap-2.5 group"
     >
-      <span className={cn("relative h-5 w-9 rounded-full transition-colors", checked ? "bg-leaf" : "bg-line")}>
-        <span className={cn("absolute top-0.5 size-4 rounded-full bg-white shadow transition-transform", checked ? "translate-x-4.5" : "translate-x-0.5")} />
+      <span className={cn("relative inline-block h-5 w-9 shrink-0 rounded-full transition-colors", checked ? "bg-leaf" : "bg-line")}>
+        <span className="absolute top-0.5 size-4 rounded-full bg-white shadow transition-[left]" style={{ left: checked ? 18 : 2 }} />
       </span>
       {label && <span className="text-sm text-ink-2">{label}</span>}
     </button>

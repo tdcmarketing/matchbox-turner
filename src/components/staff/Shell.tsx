@@ -51,7 +51,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen flex bg-paper-2">
-      <aside className="w-[232px] shrink-0 bg-ink text-white flex flex-col sticky top-0 h-screen">
+      <aside className="w-[232px] shrink-0 self-start bg-ink text-white flex flex-col sticky top-0 h-screen">
         <div className="px-5 h-16 flex items-center border-b border-white/10">
           <Logo href="/app" invert product />
         </div>

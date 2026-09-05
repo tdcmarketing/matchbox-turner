@@ -33,7 +33,7 @@ export default function MessagesPage() {
         }
       />
       <Page>
-        <div className="grid gap-4 xl:grid-cols-[1fr_440px]">
+        <div className="grid gap-4 lg:grid-cols-[1fr_400px]">
           <Card>
             <ul className="divide-y divide-line-soft">
               {rows.map((m) => {
