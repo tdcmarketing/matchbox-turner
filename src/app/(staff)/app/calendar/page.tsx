@@ -104,7 +104,7 @@ export default function CalendarPage() {
                     return (
                       <Link
                         key={s.id}
-                        href={`/app/leads/${lead.id}`}
+                        href={`/app/lead/?id=${lead.id}`}
                         className={cn("absolute left-1 right-1 rounded-md px-2 py-1 text-[11.5px] leading-tight overflow-hidden border", faded ? "bg-white border-dashed" : "text-white")}
                         style={{ top: top + 1, height: ROW / 2 - 2, background: faded ? undefined : color, borderColor: color }}
                         title={`${lead.firstName} ${lead.lastName} · ${listing.unitLabel}`}

@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { use, useState } from "react";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useDemo } from "@/lib/store";
 import { Page, PageHeader } from "@/components/staff/Shell";
 import { Badge, Button, Card, CardHeader, Modal, Select, Textarea, useToast } from "@/components/ui";
@@ -11,8 +12,16 @@ import { fmtAgo, fmtDateTime, fmtTime } from "@/lib/format";
 import type { LeadStatus } from "@/lib/data/types";
 import { Check, Mail, MessageSquareText, Phone, X } from "lucide-react";
 
-export default function LeadDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
+export default function LeadDetailPage() {
+  return (
+    <Suspense fallback={null}>
+      <LeadDetailPageInner />
+    </Suspense>
+  );
+}
+
+function LeadDetailPageInner() {
+  const id = useSearchParams().get("id") ?? "";
   return <LeadDetail id={id} />;
 }
 
@@ -130,7 +139,7 @@ function LeadDetail({ id }: { id: string }) {
             <Card>
               <CardHeader title="Interested in" />
               <div className="px-5 pb-5">
-                <Link href={`/app/listings/${listing.id}`} className="font-bold text-ink hover:text-strike">
+                <Link href={`/app/listing/?id=${listing.id}`} className="font-bold text-ink hover:text-strike">
                   {property.name} {listing.unitLabel}
                 </Link>
                 <div className="text-[13px] text-ink-3">{listing.headline}</div>
@@ -176,7 +185,7 @@ function LeadDetail({ id }: { id: string }) {
                   {showings.map((s) => (
                     <li key={s.id} className="px-5 py-3">
                       <div className="flex items-center justify-between gap-2">
-                        <Link href={`/tour/${s.id}`} className="font-semibold text-ink hover:text-strike text-[14px]">
+                        <Link href={`/tour/?id=${s.id}`} className="font-semibold text-ink hover:text-strike text-[14px]">
                           {fmtDateTime(s.startsAt)}
                         </Link>
                         <ShowingStatusBadge status={s.status} />

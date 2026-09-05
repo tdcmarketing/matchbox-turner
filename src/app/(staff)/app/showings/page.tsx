@@ -125,7 +125,7 @@ export default function ShowingsPage() {
                         </span>
                       )}
                       {s.status === "CONFIRMED" && !past && (
-                        <Link href={`/tour/${s.id}`} className="text-[13px] font-semibold text-strike">
+                        <Link href={`/tour/?id=${s.id}`} className="text-[13px] font-semibold text-strike">
                           Renter view
                         </Link>
                       )}

@@ -1,6 +1,7 @@
 "use client";
 
-import { use, useEffect } from "react";
+import { Suspense, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { useDemo } from "@/lib/store";
 import { Hydrated } from "@/components/Hydrated";
 import { Button } from "@/components/ui";
@@ -8,8 +9,16 @@ import { fmtTime } from "@/lib/format";
 import { Check, KeyRound, LockKeyhole, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
 
-export default function AccessPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
+export default function AccessPage() {
+  return (
+    <Suspense fallback={null}>
+      <AccessPageInner />
+    </Suspense>
+  );
+}
+
+function AccessPageInner() {
+  const id = useSearchParams().get("id") ?? "";
   return (
     <Hydrated>
       <Access id={id} />
@@ -46,7 +55,7 @@ function Access({ id }: { id: string }) {
           Your code for {property.name} {listing.unitLabel} unlocks at{" "}
           <span className="font-semibold text-ink">{fmtTime(new Date(new Date(showing.startsAt).getTime() - demo.settings.codeReleaseMinutes * 60000).toISOString())}</span>, {demo.settings.codeReleaseMinutes} minutes before your tour.
         </p>
-        <Link href={`/tour/${showing.id}`} className="inline-block mt-6 text-sm font-semibold text-strike">
+        <Link href={`/tour/?id=${showing.id}`} className="inline-block mt-6 text-sm font-semibold text-strike">
           Back to tour details
         </Link>
       </div>
@@ -116,7 +125,7 @@ function Access({ id }: { id: string }) {
         <div className="mt-5 rounded-lg bg-leaf-soft p-5 rise">
           <div className="font-bold text-ink">Thanks for locking up.</div>
           <p className="mt-1 text-[14px] text-ink-2">We just texted you a two-tap feedback link. Or do it here:</p>
-          <Button className="mt-3" href={`/feedback/${showing.id}`}>
+          <Button className="mt-3" href={`/feedback/?id=${showing.id}`}>
             How was the tour?
           </Button>
         </div>

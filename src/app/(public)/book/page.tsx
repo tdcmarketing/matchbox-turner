@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { use, useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useDemo } from "@/lib/store";
 import { Hydrated } from "@/components/Hydrated";
 import { Button, Field, Input, Select } from "@/components/ui";
@@ -11,8 +12,16 @@ import { SlotPicker } from "@/components/public/SlotPicker";
 import type { Lead, PrequalAnswer, Showing } from "@/lib/data/types";
 import { Check } from "lucide-react";
 
-export default function TourPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(params);
+export default function TourPage() {
+  return (
+    <Suspense fallback={null}>
+      <TourPageInner />
+    </Suspense>
+  );
+}
+
+function TourPageInner() {
+  const slug = useSearchParams().get("slug") ?? "";
   return (
     <Hydrated>
       <TourFlow slug={slug} />
@@ -63,7 +72,7 @@ function TourFlow({ slug }: { slug: string }) {
 
   return (
     <div className="mx-auto max-w-3xl px-5 sm:px-8 py-8">
-      <Link href={`/listings/${listing.slug}`} className="text-[13px] font-semibold text-ash hover:text-ink">
+      <Link href={`/listing/?slug=${listing.slug}`} className="text-[13px] font-semibold text-ash hover:text-ink">
         ← {property.name} {listing.unitLabel}
       </Link>
 
@@ -221,7 +230,7 @@ function TourFlow({ slug }: { slug: string }) {
               {showing.type === "SELF" ? " Your one-time lockbox code arrives 15 minutes before your tour." : " Your leasing agent will meet you at the door."}
             </div>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Button href={`/tour/${showing.id}`} size="lg">
+              <Button href={`/tour/?id=${showing.id}`} size="lg">
                 Confirm this tour
               </Button>
               <Button href="/listings" variant="ghost" size="lg">

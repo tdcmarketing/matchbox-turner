@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import Link from "next/link";
-import { use, useState } from "react";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useDemo } from "@/lib/store";
 import { Page, PageHeader } from "@/components/staff/Shell";
 import { Avatar, Badge, Button, Card, CardHeader, Field, Input, Select, Textarea, Toggle, useToast } from "@/components/ui";
@@ -11,8 +13,16 @@ import { fmtAgo, fmtDateTime, money } from "@/lib/format";
 import type { ListingStatus, ShowingMode } from "@/lib/data/types";
 import { ExternalLink } from "lucide-react";
 
-export default function ListingAdminPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
+export default function ListingAdminPage() {
+  return (
+    <Suspense fallback={null}>
+      <ListingAdminPageInner />
+    </Suspense>
+  );
+}
+
+function ListingAdminPageInner() {
+  const id = useSearchParams().get("id") ?? "";
   return <ListingAdmin id={id} />;
 }
 
@@ -46,7 +56,7 @@ function ListingAdmin({ id }: { id: string }) {
           <span className="flex items-center gap-3">
             <span>{property.address}</span>
             {listing.rmUnitId && <span className="text-smoke">Rent Manager unit #{listing.rmUnitId}</span>}
-            <Link href={`/listings/${listing.slug}`} className="inline-flex items-center gap-1 text-strike font-semibold">
+            <Link href={`/listing/?slug=${listing.slug}`} className="inline-flex items-center gap-1 text-strike font-semibold">
               Renter view <ExternalLink size={12} />
             </Link>
           </span>
@@ -103,7 +113,7 @@ function ListingAdmin({ id }: { id: string }) {
                   <div className="flex gap-2 flex-wrap">
                     {draft.photos.map((p) => (
                       <span key={p} className="relative size-24 rounded-md overflow-hidden bg-paper">
-                        <Image src={p} alt="" fill sizes="96px" className="object-cover" />
+                        <Image src={asset(p)} alt="" fill sizes="96px" className="object-cover" />
                       </span>
                     ))}
                     <button type="button" className="size-24 rounded-md border-2 border-dashed border-line text-ash text-[12.5px] font-semibold hover:border-ink-3 hover:text-ink">

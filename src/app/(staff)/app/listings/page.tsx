@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import Link from "next/link";
 import { useState } from "react";
 import { useDemo } from "@/lib/store";
@@ -73,8 +74,8 @@ export default function ListingsAdminPage() {
                 return (
                   <tr key={l.id} className="hover:bg-paper-2">
                     <Td>
-                      <Link href={`/app/listings/${l.id}`} className="flex items-center gap-3 group">
-                        <span className="relative size-11 rounded-md overflow-hidden bg-paper shrink-0">{l.photos[0] && <Image src={l.photos[0]} alt="" fill sizes="44px" className="object-cover" />}</span>
+                      <Link href={`/app/listing/?id=${l.id}`} className="flex items-center gap-3 group">
+                        <span className="relative size-11 rounded-md overflow-hidden bg-paper shrink-0">{l.photos[0] && <Image src={asset(l.photos[0])} alt="" fill sizes="44px" className="object-cover" />}</span>
                         <span>
                           <span className="block font-semibold text-ink group-hover:text-strike">
                             {property.name} · {l.unitLabel}

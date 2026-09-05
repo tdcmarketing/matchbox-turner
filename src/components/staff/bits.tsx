@@ -55,14 +55,14 @@ export function ShowingStatusBadge({ status }: { status: ShowingStatus }) {
 
 export function ListingLink({ id, children }: { id: string; children: React.ReactNode }) {
   return (
-    <Link href={`/app/listings/${id}`} className="font-semibold text-ink hover:text-strike">
+    <Link href={`/app/listing/?id=${id}`} className="font-semibold text-ink hover:text-strike">
       {children}
     </Link>
   );
 }
 export function LeadLink({ id, children }: { id: string; children: React.ReactNode }) {
   return (
-    <Link href={`/app/leads/${id}`} className="font-semibold text-ink hover:text-strike">
+    <Link href={`/app/lead/?id=${id}`} className="font-semibold text-ink hover:text-strike">
       {children}
     </Link>
   );

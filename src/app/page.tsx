@@ -21,7 +21,7 @@ const doors = [
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-ink text-white flex flex-col">
+    <main className="min-h-[calc(100vh-2.5rem)] bg-ink text-white flex flex-col">
       <header className="px-6 sm:px-10 py-6 flex items-center justify-between">
         <Logo invert product />
         <nav className="flex items-center gap-5 text-[13px] font-semibold text-white/60">

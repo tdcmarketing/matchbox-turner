@@ -47,11 +47,15 @@ export function Shell({ children }: { children: React.ReactNode }) {
   const now = demo.now();
   const offset = demo.clockOffsetMs !== 0;
 
-  const isActive = (href: string, exact?: boolean) => (exact ? pathname === href : pathname === href || pathname.startsWith(href + "/"));
+  const isActive = (href: string, exact?: boolean) => {
+    if (exact) return pathname === href;
+    const singular = href.replace(/s$/, "");
+    return pathname === href || pathname.startsWith(href + "/") || pathname === singular || pathname.startsWith(singular + "/");
+  };
 
   return (
-    <div className="min-h-screen flex bg-paper-2">
-      <aside className="w-[232px] shrink-0 self-start bg-ink text-white flex flex-col sticky top-0 h-screen">
+    <div className="min-h-[calc(100vh-2.5rem)] flex bg-paper-2">
+      <aside className="w-[232px] shrink-0 self-start bg-ink text-white flex flex-col sticky top-10 h-[calc(100vh-2.5rem)]">
         <div className="px-5 h-16 flex items-center border-b border-white/10">
           <Logo href="/app" invert product />
         </div>

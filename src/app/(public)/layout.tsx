@@ -3,7 +3,7 @@ import { Logo } from "@/components/Logo";
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col bg-paper-2">
+    <div className="min-h-[calc(100vh-2.5rem)] flex flex-col bg-paper-2">
       <header className="bg-white border-b border-line-soft">
         <div className="mx-auto max-w-6xl px-5 sm:px-8 h-16 flex items-center justify-between">
           <Logo href="/listings" />

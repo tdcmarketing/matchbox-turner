@@ -47,7 +47,7 @@ function RmWindow() {
   const now = demo.now();
 
   return (
-    <div className="min-h-screen bg-[#e9ecf0] text-[#1f2933] font-[system-ui,'Segoe_UI',Roboto,sans-serif] text-[13px]">
+    <div className="min-h-[calc(100vh-2.5rem)] bg-[#e9ecf0] text-[#1f2933] font-[system-ui,'Segoe_UI',Roboto,sans-serif] text-[13px]">
       {/* Sandbox banner */}
       <div className="bg-[#fff4d6] border-b border-[#e6c97a] text-[#6b5314] text-[12px] px-4 py-1.5 flex items-center justify-between">
         <span>

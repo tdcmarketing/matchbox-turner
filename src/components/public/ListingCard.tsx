@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import Link from "next/link";
 import type { Listing, Property } from "@/lib/data/types";
 import { beds, baths, fmtDateShort, money } from "@/lib/format";
@@ -10,9 +11,9 @@ export function ListingCard({ listing, property, now }: { listing: Listing; prop
   const availableSoon = new Date(listing.availableOn).getTime() - now.getTime() < 30 * 86400000;
   const selfShow = listing.showingMode === "SELF" || listing.showingMode === "BOTH";
   return (
-    <Link href={`/listings/${listing.slug}`} className="group block bg-white rounded-lg overflow-hidden border border-line-soft shadow-card hover:shadow-pop transition-shadow">
+    <Link href={`/listing/?slug=${listing.slug}`} className="group block bg-white rounded-lg overflow-hidden border border-line-soft shadow-card hover:shadow-pop transition-shadow">
       <div className="relative aspect-[4/3] bg-paper">
-        <Image src={listing.photos[0]} alt={`${property.name} ${listing.unitLabel}`} fill sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="object-cover group-hover:scale-[1.02] transition-transform duration-500" />
+        <Image src={asset(listing.photos[0])} alt={`${property.name} ${listing.unitLabel}`} fill sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="object-cover group-hover:scale-[1.02] transition-transform duration-500" />
         <div className="absolute top-3 left-3 flex gap-1.5">
           {selfShow && <Badge tone="ink">Self-guided tours</Badge>}
           {availableSoon && listing.status === "ACTIVE" && <Badge tone="red">Available {fmtDateShort(listing.availableOn)}</Badge>}

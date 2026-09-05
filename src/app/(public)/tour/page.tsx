@@ -1,6 +1,7 @@
 "use client";
 
-import { use, useState } from "react";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useDemo } from "@/lib/store";
 import { Hydrated } from "@/components/Hydrated";
 import { Badge, Button, Modal } from "@/components/ui";
@@ -9,8 +10,16 @@ import { SlotPicker } from "@/components/public/SlotPicker";
 import { Check, KeyRound, MapPin, UserRound } from "lucide-react";
 import Link from "next/link";
 
-export default function TourStatusPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
+export default function TourStatusPage() {
+  return (
+    <Suspense fallback={null}>
+      <TourStatusPageInner />
+    </Suspense>
+  );
+}
+
+function TourStatusPageInner() {
+  const id = useSearchParams().get("id") ?? "";
   return (
     <Hydrated>
       <TourStatus id={id} />
@@ -97,7 +106,7 @@ function TourStatus({ id }: { id: string }) {
       {showing.status === "CONFIRMED" && (
         <div className="mt-6 space-y-3">
           {accessOpen ? (
-            <Link href={`/tour/${showing.id}/access`} className="block rounded-lg bg-strike text-white p-5 hover:bg-strike-deep">
+            <Link href={`/tour/access/?id=${showing.id}`} className="block rounded-lg bg-strike text-white p-5 hover:bg-strike-deep">
               <div className="text-[12px] font-bold uppercase tracking-wider text-white/70">Your tour starts {fmtAgo(showing.startsAt, now)}</div>
               <div className="mt-1 text-xl font-extrabold flex items-center gap-2">
                 <KeyRound size={20} /> Get your access code →
@@ -135,7 +144,7 @@ function TourStatus({ id }: { id: string }) {
           <div className="font-bold text-ink">Thanks for touring.</div>
           <p className="mt-1 text-[14px] text-ink-3">{showing.feedback ? "We got your feedback." : "Tell us how it went."}</p>
           <div className="mt-4 flex gap-2">
-            {!showing.feedback && <Button href={`/feedback/${showing.id}`}>Leave feedback</Button>}
+            {!showing.feedback && <Button href={`/feedback/?id=${showing.id}`}>Leave feedback</Button>}
             <Button href={demo.settings.applicationUrl} variant={showing.feedback ? "primary" : "secondary"}>
               Apply now
             </Button>

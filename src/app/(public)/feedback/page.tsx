@@ -1,13 +1,22 @@
 "use client";
 
-import { use, useState } from "react";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useDemo } from "@/lib/store";
 import { Hydrated } from "@/components/Hydrated";
 import { Button, Textarea } from "@/components/ui";
 import { Check, Star } from "lucide-react";
 
-export default function FeedbackPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
+export default function FeedbackPage() {
+  return (
+    <Suspense fallback={null}>
+      <FeedbackPageInner />
+    </Suspense>
+  );
+}
+
+function FeedbackPageInner() {
+  const id = useSearchParams().get("id") ?? "";
   return (
     <Hydrated>
       <Feedback id={id} />

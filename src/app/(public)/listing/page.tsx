@@ -1,16 +1,26 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import Link from "next/link";
-import { use } from "react";
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { useDemo } from "@/lib/store";
 import { Hydrated } from "@/components/Hydrated";
 import { Badge, Button, Eyebrow } from "@/components/ui";
 import { baths, beds, fmtDateLong, money } from "@/lib/format";
 import { Check, Clock, KeyRound, MapPin, PawPrint, UserRound } from "lucide-react";
 
-export default function ListingDetailPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(params);
+export default function ListingDetailPage() {
+  return (
+    <Suspense fallback={null}>
+      <ListingDetailPageInner />
+    </Suspense>
+  );
+}
+
+function ListingDetailPageInner() {
+  const slug = useSearchParams().get("slug") ?? "";
   return (
     <Hydrated>
       <Detail slug={slug} />
@@ -47,11 +57,11 @@ function Detail({ slug }: { slug: string }) {
 
       <div className="mx-auto max-w-6xl px-5 sm:px-8 mt-4 grid gap-3 md:grid-cols-[2fr_1fr] md:grid-rows-2 md:h-[440px]">
         <div className="relative aspect-[16/10] md:aspect-auto md:row-span-2 rounded-lg overflow-hidden bg-paper">
-          <Image src={listing.photos[0]} alt={`${property.name} ${listing.unitLabel}`} fill priority sizes="(min-width: 768px) 66vw, 100vw" className="object-cover" />
+          <Image src={asset(listing.photos[0])} alt={`${property.name} ${listing.unitLabel}`} fill priority sizes="(min-width: 768px) 66vw, 100vw" className="object-cover" />
         </div>
         {listing.photos.slice(1, 3).map((src) => (
           <div key={src} className="relative hidden md:block rounded-lg overflow-hidden bg-paper">
-            <Image src={src} alt="" fill sizes="33vw" className="object-cover" />
+            <Image src={asset(src)} alt="" fill sizes="33vw" className="object-cover" />
           </div>
         ))}
         {listing.photos.length < 3 && (
@@ -147,7 +157,7 @@ function Detail({ slug }: { slug: string }) {
             </dl>
             {bookable ? (
               <>
-                <Button href={`/listings/${listing.slug}/tour`} size="lg" className="w-full mt-6">
+                <Button href={`/book/?slug=${listing.slug}`} size="lg" className="w-full mt-6">
                   Schedule a tour
                 </Button>
                 <div className="mt-3 flex items-center justify-center gap-1.5 text-[12.5px] text-ash">
@@ -156,7 +166,7 @@ function Detail({ slug }: { slug: string }) {
               </>
             ) : (
               <>
-                <Button href={`/listings/${listing.slug}/tour`} size="lg" variant="secondary" className="w-full mt-6">
+                <Button href={`/book/?slug=${listing.slug}`} size="lg" variant="secondary" className="w-full mt-6">
                   Join the waitlist
                 </Button>
                 <div className="mt-3 text-center text-[12.5px] text-ash">{listing.status === "LEASED" ? "This home is leased. We'll text you if it opens up." : "Tours are paused for this home."}</div>

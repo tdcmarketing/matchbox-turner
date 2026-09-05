@@ -10,7 +10,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState("kelsey@matchboxrealty.com");
   const [sent, setSent] = useState(false);
   return (
-    <main className="min-h-screen grid lg:grid-cols-2">
+    <main className="min-h-[calc(100vh-2.5rem)] grid lg:grid-cols-2">
       <section className="hidden lg:flex flex-col justify-between bg-ink text-white p-10">
         <Logo invert product />
         <div>
