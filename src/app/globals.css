@@ -1,26 +1,143 @@
 @import "tailwindcss";
 
+/*
+  Matchbox Turner design tokens.
+  Derived from matchboxrealty.com: strike red, ink black, warm paper greys,
+  Proxima Nova (substituted with Figtree), plus a monospace utility face for codes.
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --strike: #a71c20;
+  --strike-deep: #86171a;
+  --strike-soft: #f6e6e6;
+  --ink: #050708;
+  --ink-2: #212529;
+  --ink-3: #575555;
+  --ash: #6d6d6d;
+  --smoke: #a8a6a2;
+  --line: #d1d0cd;
+  --line-soft: #e5e3df;
+  --paper: #eeece8;
+  --paper-2: #f6f5f2;
+  --white: #ffffff;
+  --leaf: #62a329;
+  --leaf-soft: #e9f3df;
+  --amber: #d08a1d;
+  --amber-soft: #fbf0da;
+  --sky: #2b6cb0;
+  --sky-soft: #e3edf9;
+
+  --radius: 6px;
+  --radius-lg: 10px;
+  --shadow-card: 0 1px 2px rgba(5, 7, 8, 0.06), 0 1px 1px rgba(5, 7, 8, 0.04);
+  --shadow-pop: 0 12px 32px -12px rgba(5, 7, 8, 0.28), 0 2px 6px rgba(5, 7, 8, 0.08);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-strike: var(--strike);
+  --color-strike-deep: var(--strike-deep);
+  --color-strike-soft: var(--strike-soft);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-ash: var(--ash);
+  --color-smoke: var(--smoke);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-leaf: var(--leaf);
+  --color-leaf-soft: var(--leaf-soft);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+  --color-sky: var(--sky);
+  --color-sky-soft: var(--sky-soft);
+
+  --font-sans: var(--font-figtree), "proxima-nova", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, monospace;
+
+  --radius-sm: 4px;
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius-lg);
+  --shadow-card: var(--shadow-card);
+  --shadow-pop: var(--shadow-pop);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper-2);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--strike);
+  color: white;
+}
+
+:focus-visible {
+  outline: 2px solid var(--strike);
+  outline-offset: 2px;
+}
+
+/* Matchstick: the vertical rule with a red tip. Used for timelines and step markers. */
+.matchstick {
+  position: relative;
+  padding-left: 1.25rem;
+}
+.matchstick::before {
+  content: "";
+  position: absolute;
+  left: 0.3rem;
+  top: 0.35rem;
+  bottom: -0.35rem;
+  width: 2px;
+  background: var(--line);
+}
+.matchstick::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.35rem;
+  width: calc(0.6rem + 2px);
+  height: 0.6rem;
+  border-radius: 999px;
+  background: var(--smoke);
+}
+.matchstick.is-lit::after {
+  background: var(--strike);
+  box-shadow: 0 0 0 4px var(--strike-soft);
+}
+.matchstick.is-last::before {
+  display: none;
+}
+
+/* Strike code: the lockbox code treatment */
+.strike-code {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.35em;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rise {
+  animation: rise 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }

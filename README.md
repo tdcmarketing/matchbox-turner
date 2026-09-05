@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Matchbox Turner
 
-## Getting Started
+Leasing automation for Matchbox Realty, modeled on Tenant Turner. This is the **demo MVP**: a complete front end running on sample data, with the plumbing (database, Twilio, Resend, Rent Manager API) stubbed so the whole product can be walked through in a browser.
 
-First, run the development server:
+## Run it
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `/` demo launcher
+- `/listings` what renters see
+- `/app` what the leasing team sees (no login required in the demo; `/login` shows the sign-in screen)
+- `/app/settings/rent-manager` the Rent Manager integration map and the questions for Brian
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## How the demo works
 
-## Learn More
+All data lives in `src/lib/data/seed.ts` and is loaded into a browser-side store (`src/lib/store.ts`) that persists to `localStorage`. Everything you do in the demo (book a tour, confirm it, check in, run a sync) updates that store, so the staff app reflects what the renter did and vice versa.
 
-To learn more about Next.js, take a look at the following resources:
+- **Demo clock.** The seed data is anchored to Monday, September 14, 2026. The clock button at the bottom of the staff sidebar moves time forward so you can show a self-guided tour unlocking without waiting.
+- **Reset.** Same dialog, "Reset demo data" returns everything to the seed.
+- **Messages.** Texts and emails are not actually sent. Every message the system would have sent appears under Messages in the staff app, with the template that produced it.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Demo script (about 8 minutes)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Start at `/listings`. Filter to self-guided tours. Open Urban Exchange Unit 312.
+2. Click **Schedule a tour**. Enter a name and phone. On the questions, answer "Yes" to smoking to show the polite decline. Go back and answer "No".
+3. Pick **Self-guided**, choose a time later today. Land on the "Tour requested" page and click **Confirm this tour**.
+4. Switch to `/app`. The tour is on Today's tours and the calendar. Open Messages to show the confirmation text and email that went out.
+5. Open the demo clock. Jump to "…self-guided tour, 14 min before". Go back to the renter's tour page: the red **Get your access code** card is live. Open it, show the code and lockbox location, tap **I'm inside**.
+6. Back in `/app`: "Inside a home right now" shows the renter. Lockboxes shows the code consumed.
+7. Tap **Check out** on the renter side, then leave 5-star feedback and "Yes, send me the application". Show the apply email in Messages and the lead now marked Toured.
+8. Open **Rent Manager** in the sidebar. Click **Sync now**. Two new draft listings appear, one rent changes, Metro Unit 7 flips to Leased because RM shows a lease signed. Walk through the sync flows and the questions for Brian.
+9. Finish on Reports.
 
-## Deploy on Vercel
+## What's real vs. stubbed
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Real in the demo | Stubbed |
+|---|---|
+| Every screen, flow, and state change | Database (browser storage instead) |
+| Pre-qualification rules and slot generation | Sending SMS and email |
+| Confirm / cancel / reschedule / check-in / feedback logic | Rent Manager API (fixture-backed fake) |
+| Lockbox code pools | Login (any email works) |
+| Rent Manager sync behavior | ILS feeds, photo upload |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Stack
+
+Next.js 16, React 19, TypeScript, Tailwind 4, zustand, date-fns, lucide-react. No backend yet by design.
+
+## Full build plan
+
+The roadmap after client approval (Postgres/Prisma, Twilio, Resend, real Rent Manager sync, Zillow feed, owner reports) is in `~/.claude/plans/linked-humming-seahorse.md` and summarized on the Rent Manager page in the app.
