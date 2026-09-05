@@ -29,7 +29,7 @@ export default function Home() {
             Rent Manager view (simulated) →
           </Link>
           <Link href="/app/settings/rent-manager" className="hover:text-white">
-            Notes for Brian →
+            Notes →
           </Link>
         </nav>
       </header>

@@ -6,7 +6,7 @@ Leasing automation for Matchbox Realty, modeled on Tenant Turner. This is the **
 
 https://tdcmarketing.github.io/matchbox-turner/
 
-Deploys automatically from `main` via GitHub Actions (static export, `NEXT_PUBLIC_BASE_PATH=/matchbox-turner`). The top bar on every page jumps between the staff app, renter site, simulated Rent Manager, notes for Brian, and the sign-in screen.
+Deploys automatically from `main` via GitHub Actions (static export, `NEXT_PUBLIC_BASE_PATH=/matchbox-turner`). The top bar on every page jumps between the staff app, renter site, simulated Rent Manager, notes, and the sign-in screen.
 
 ## Run it
 
@@ -20,8 +20,8 @@ Open http://localhost:3000.
 - `/` demo launcher
 - `/listings` what renters see
 - `/app` what the leasing team sees (no login required in the demo; `/login` shows the sign-in screen)
-- `/app/settings/rent-manager` the Rent Manager integration map and the questions for Brian
-- `/rm` a simulated Rent Manager window showing the Prospects, History/Notes, and unit statuses that Turner writes back (what Brian's team would see)
+- `/app/settings/rent-manager` the Rent Manager integration map and the open questions for Matchbox
+- `/rm` a simulated Rent Manager window showing the Prospects, History/Notes, and unit statuses that Turner writes back (what Matchbox staff would see)
 
 ## How the demo works
 
@@ -40,8 +40,8 @@ All data lives in `src/lib/data/seed.ts` and is loaded into a browser-side store
 5. Open the demo clock. Jump to "…self-guided tour, 14 min before". Go back to the renter's tour page: the red **Get your access code** card is live. Open it, show the code and lockbox location, tap **I'm inside**.
 6. Back in `/app`: "Inside a home right now" shows the renter. Lockboxes shows the code consumed.
 7. Tap **Check out** on the renter side, then leave 5-star feedback and "Yes, send me the application". Show the apply email in Messages and the lead now marked Toured.
-8. Open **Rent Manager** in the sidebar. Click **Sync now**. Two new draft listings appear, one rent changes, Metro Unit 7 flips to Leased because RM shows a lease signed. Walk through the sync flows and the questions for Brian.
-9. Click **What Brian sees in RM**. The simulated Rent Manager window shows the new Prospect, every tour event on its History/Notes tab, and the unit list Turner reads from.
+8. Open **Rent Manager** in the sidebar. Click **Sync now**. Two new draft listings appear, one rent changes, Metro Unit 7 flips to Leased because RM shows a lease signed. Walk through the sync flows and the open questions.
+9. Click **What Matchbox sees in RM**. The simulated Rent Manager window shows the new Prospect, every tour event on its History/Notes tab, and the unit list Turner reads from.
 10. Finish on Reports.
 
 ## What's real vs. stubbed

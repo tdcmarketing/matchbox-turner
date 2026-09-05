@@ -9,7 +9,7 @@ const sections = [
   { href: "/app", label: "Staff app", match: (p: string) => p.startsWith("/app") && !p.startsWith("/app/settings/rent-manager") },
   { href: "/listings", label: "Renter site", match: (p: string) => ["/listings", "/listing", "/book", "/tour", "/feedback"].some((x) => p === x || p.startsWith(x + "/") || p.startsWith(x + "?")) },
   { href: "/rm", label: "Rent Manager (simulated)", match: (p: string) => p.startsWith("/rm") },
-  { href: "/app/settings/rent-manager", label: "Notes for Brian", match: (p: string) => p.startsWith("/app/settings/rent-manager") },
+  { href: "/app/settings/rent-manager", label: "Notes", match: (p: string) => p.startsWith("/app/settings/rent-manager") },
   { href: "/login", label: "Sign-in screen", match: (p: string) => p.startsWith("/login") },
 ];
 

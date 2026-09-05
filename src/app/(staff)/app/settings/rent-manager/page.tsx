@@ -101,11 +101,11 @@ export default function RentManagerPage() {
       <PageHeader
         eyebrow="Integration"
         title="Rent Manager"
-        subtitle="What flows between Matchbox Turner and Rent Manager, what's built, and what we need to ask Brian."
+        subtitle="What flows between Matchbox Turner and Rent Manager, what's built, and the open questions for Matchbox."
         action={
           <>
             <Button variant="secondary" href="/rm">
-              What Brian sees in RM
+              What Matchbox sees in RM
             </Button>
             <Button onClick={run} disabled={running}>
               <RefreshCw size={15} className={cn(running && "animate-spin")} /> {running ? "Syncing…" : "Sync now"}
@@ -165,7 +165,7 @@ export default function RentManagerPage() {
                       </Badge>
                     ) : (
                       <Badge tone="amber">
-                        <CircleHelp size={11} /> Ask Brian
+                        <CircleHelp size={11} /> Open question
                       </Badge>
                     )}
                   </li>
@@ -178,7 +178,7 @@ export default function RentManagerPage() {
             </Card>
 
             <Card>
-              <CardHeader title="Questions for Brian" subtitle="Grouped so the meeting runs in order. Answers decide the integration scope." />
+              <CardHeader title="Questions for Matchbox" subtitle="Grouped so the meeting runs in order. Answers decide the integration scope." />
               <div className="px-5 pb-5 space-y-5">
                 {questions.map((g, gi) => (
                   <div key={g.topic}>
@@ -229,7 +229,7 @@ export default function RentManagerPage() {
             </Card>
 
             <Card>
-              <CardHeader title="Where this beats the off-the-shelf option" subtitle="For the conversation with Brian" />
+              <CardHeader title="Where this beats the off-the-shelf option" subtitle="For the conversation with Matchbox" />
               <ul className="px-5 pb-5 space-y-3.5">
                 {betterThan.map(([t, b]) => (
                   <li key={t}>

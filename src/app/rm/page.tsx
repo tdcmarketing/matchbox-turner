@@ -11,7 +11,7 @@ import type { Lead, LeadStatus } from "@/lib/data/types";
 
 /**
  * Simulated Rent Manager Online window.
- * This is what Brian's team would see inside RM after Matchbox Turner writes back:
+ * This is what Matchbox staff would see inside RM after Matchbox Turner writes back:
  * Prospect records, History/Notes entries, and unit availability. Styled to read as
  * a different product on purpose.
  */
