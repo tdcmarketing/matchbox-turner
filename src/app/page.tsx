@@ -24,9 +24,14 @@ export default function Home() {
     <main className="min-h-screen bg-ink text-white flex flex-col">
       <header className="px-6 sm:px-10 py-6 flex items-center justify-between">
         <Logo invert product />
-        <Link href="/app/settings/rent-manager" className="text-[13px] font-semibold text-white/60 hover:text-white">
-          Rent Manager notes for Brian →
-        </Link>
+        <nav className="flex items-center gap-5 text-[13px] font-semibold text-white/60">
+          <Link href="/rm" className="hover:text-white">
+            Rent Manager view (simulated) →
+          </Link>
+          <Link href="/app/settings/rent-manager" className="hover:text-white">
+            Notes for Brian →
+          </Link>
+        </nav>
       </header>
 
       <section className="flex-1 flex flex-col justify-center px-6 sm:px-10 pb-16">

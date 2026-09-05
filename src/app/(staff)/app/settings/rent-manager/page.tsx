@@ -103,9 +103,14 @@ export default function RentManagerPage() {
         title="Rent Manager"
         subtitle="What flows between Matchbox Turner and Rent Manager, what's built, and what we need to ask Brian."
         action={
-          <Button onClick={run} disabled={running}>
-            <RefreshCw size={15} className={cn(running && "animate-spin")} /> {running ? "Syncing…" : "Sync now"}
-          </Button>
+          <>
+            <Button variant="secondary" href="/rm">
+              What Brian sees in RM
+            </Button>
+            <Button onClick={run} disabled={running}>
+              <RefreshCw size={15} className={cn(running && "animate-spin")} /> {running ? "Syncing…" : "Sync now"}
+            </Button>
+          </>
         }
       />
       <Page>

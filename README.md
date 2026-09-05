@@ -15,6 +15,7 @@ Open http://localhost:3000.
 - `/listings` what renters see
 - `/app` what the leasing team sees (no login required in the demo; `/login` shows the sign-in screen)
 - `/app/settings/rent-manager` the Rent Manager integration map and the questions for Brian
+- `/rm` a simulated Rent Manager window showing the Prospects, History/Notes, and unit statuses that Turner writes back (what Brian's team would see)
 
 ## How the demo works
 
@@ -34,7 +35,8 @@ All data lives in `src/lib/data/seed.ts` and is loaded into a browser-side store
 6. Back in `/app`: "Inside a home right now" shows the renter. Lockboxes shows the code consumed.
 7. Tap **Check out** on the renter side, then leave 5-star feedback and "Yes, send me the application". Show the apply email in Messages and the lead now marked Toured.
 8. Open **Rent Manager** in the sidebar. Click **Sync now**. Two new draft listings appear, one rent changes, Metro Unit 7 flips to Leased because RM shows a lease signed. Walk through the sync flows and the questions for Brian.
-9. Finish on Reports.
+9. Click **What Brian sees in RM**. The simulated Rent Manager window shows the new Prospect, every tour event on its History/Notes tab, and the unit list Turner reads from.
+10. Finish on Reports.
 
 ## What's real vs. stubbed
 
