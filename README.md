@@ -2,6 +2,12 @@
 
 Leasing automation for Matchbox Realty, modeled on Tenant Turner. This is the **demo MVP**: a complete front end running on sample data, with the plumbing (database, Twilio, Resend, Rent Manager API) stubbed so the whole product can be walked through in a browser.
 
+## Staging site
+
+https://tdcmarketing.github.io/matchbox-turner/
+
+Deploys automatically from `main` via GitHub Actions (static export, `NEXT_PUBLIC_BASE_PATH=/matchbox-turner`). The top bar on every page jumps between the staff app, renter site, simulated Rent Manager, notes for Brian, and the sign-in screen.
+
 ## Run it
 
 ```bash
